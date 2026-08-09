@@ -7,6 +7,7 @@
 <title>Математика 6. клас – динамичен справочник</title>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Математика 6">
@@ -355,7 +356,7 @@ function openInstallHelp(){
  const isStandalone=window.matchMedia('(display-mode: standalone)').matches || navigator.standalone===true;
  if(isStandalone){box.innerHTML='<div class="step"><b>Справочникът вече е отворен като приложение.</b></div>';}
  else if(isiOS){box.innerHTML='<div class="step"><b>iPhone / iPad:</b> отвори страницата в Safari → натисни „Споделяне“ → „Добавяне към началния екран“.</div><div class="step">След това иконата ще се появи на началния екран и справочникът ще се отваря като самостоятелно приложение.</div>';}
- else{box.innerHTML='<div class="step"><b>Телефон (Android):</b> отвори страницата в Chrome или Edge → меню ⋮ → „Инсталиране на приложението“ / „Добавяне към началния екран“.</div><div class="step"><b>Лаптоп:</b> отвори страницата в Chrome или Edge. В адресната лента или менюто ще има „Инсталиране“.</div><div class="step">За инсталиране страницата трябва да е публикувана през <b>HTTPS</b> (например GitHub Pages). Сам файл, отворен с двойно щракване, не може да се инсталира като PWA.</div>';}
+ else{box.innerHTML='<div class="step"><b>Телефон (Android):</b> отвори страницата в Chrome или Edge → меню ⋮ → „Инсталиране на приложението“ / „Добавяне към началния екран“.</div><div class="step"><b>Лаптоп:</b> отвори страницата в Chrome или Edge. В адресната лента или менюто ще има „Инсталиране“.</div><div class="step">При инсталиране ще се използва иконата <b>„Справочник Математика 6“</b> с отворена книга.</div><div class="step">За инсталиране страницата трябва да е публикувана през <b>HTTPS</b> (например GitHub Pages). Сам файл, отворен с двойно щракване, не може да се инсталира като PWA.</div>';}
  modal.classList.add('open');
 }
 function closeInstallHelp(){document.getElementById('installModal').classList.remove('open')}
