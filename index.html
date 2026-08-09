@@ -113,6 +113,9 @@ button{cursor:pointer}
 .solid3d .shine{fill:none;stroke:color-mix(in srgb,var(--accent) 55%,white);stroke-width:2;opacity:.25;animation:solidShine 3.8s ease-in-out infinite alternate;vector-effect:non-scaling-stroke}
 @keyframes solidFloat{0%{transform:translateY(1.5px) scale(.995)}100%{transform:translateY(-2.5px) scale(1.012)}}
 @keyframes solidShine{0%{opacity:.12}100%{opacity:.48}}
+
+.solid3d .prism-upright{animation:prismFloat 5.6s ease-in-out infinite alternate}
+@keyframes prismFloat{from{transform:translateY(0)}to{transform:translateY(-2px)}}
 @media(prefers-reduced-motion:reduce){.solid3d .solid-body,.solid3d .shine{animation:none!important}}
 @media(max-width:680px){.viz.solid-viz{height:172px}.viz.solid-viz svg{max-width:300px}}
 
@@ -306,25 +309,33 @@ function svg(kind){
 const common='viewBox="0 0 240 120" aria-hidden="true"';
 const solidCommon='viewBox="0 0 280 160" class="solid3d" role="img" aria-label="Стереометричен чертеж"';
 if(kind==='circle')return `<svg ${common}><circle cx="120" cy="60" r="42"/><line x1="78" y1="60" x2="162" y2="60"/><line x1="120" y1="60" x2="145" y2="27"/><circle cx="120" cy="60" r="2" class="fill"/><text x="115" y="75">O</text><text x="132" y="43">r</text><text x="98" y="54">d</text></svg>`;
-if(kind==='prism')return `<svg ${solidCommon}><g class="solid-body">
- <!-- Правата триъгълна призма е изправена върху основата ABC. -->
- <polygon class="face-top" points="68,48 184,48 124,72"/>
- <polygon class="face-front" points="68,48 184,48 184,128 68,128"/>
- <polygon class="face-side" points="184,48 124,72 124,148 184,128"/>
- <!-- Видими ръбове -->
- <path class="edge" d="M68 48 L184 48 L124 72 Z M68 48 L68 128 M184 48 L184 128 M68 128 L184 128"/>
- <!-- Скрити ръбове на долната основа и задният околен ръб -->
- <path class="hidden-edge" d="M68 128 L124 148 L184 128 M124 72 L124 148"/>
- <line class="shine" x1="68" y1="48" x2="184" y2="48"/>
- <!-- Върхове на горната и долната основа -->
- <text class="point" x="55" y="47">A₁</text><text class="point" x="187" y="47">B₁</text><text class="point" x="117" y="68">C₁</text>
- <text class="point" x="55" y="134">A</text><text class="point" x="187" y="134">B</text><text class="point" x="116" y="159">C</text>
- <!-- Височина: всеки околен ръб на права призма е перпендикулярен на основите и е равен на h -->
- <line class="dim" x1="214" y1="48" x2="214" y2="128"/>
- <line class="dim" x1="208" y1="48" x2="220" y2="48"/><line class="dim" x1="208" y1="128" x2="220" y2="128"/>
- <line class="aux" x1="184" y1="48" x2="214" y2="48"/><line class="aux" x1="184" y1="128" x2="214" y2="128"/>
- <text class="label" x="224" y="83">h = l</text><text class="label" x="224" y="100">= BB₁</text>
- <text class="label" x="88" y="116">основа ABC</text>
+if(kind==='prism')return `<svg viewBox="0 0 280 180" class="solid3d" role="img" aria-label="Права триъгълна призма, изправена върху основата ABC"><g class="solid-body prism-upright">
+ <!-- Горна основа A₁B₁C₁ -->
+ <polygon class="face-top" points="76,58 196,58 136,31"/>
+ <!-- Околни стени -->
+ <polygon class="face-front" points="76,58 196,58 196,138 76,138"/>
+ <polygon class="face-side" points="196,58 136,31 136,111 196,138"/>
+ <polygon class="face-side" points="76,58 136,31 136,111 76,138" style="opacity:.55"/>
+ <!-- Горната основа е изцяло видима -->
+ <path class="edge" d="M76 58 L196 58 L136 31 Z"/>
+ <!-- Видими околни ръбове -->
+ <path class="edge" d="M76 58 L76 138 M196 58 L196 138"/>
+ <!-- Задният околен ръб е скрит -->
+ <path class="hidden-edge" d="M136 31 L136 111"/>
+ <!-- Долна основа ABC: предният ръб е видим, задните ръбове са скрити -->
+ <path class="edge" d="M76 138 L196 138"/>
+ <path class="hidden-edge" d="M76 138 L136 111 L196 138"/>
+ <line class="shine" x1="76" y1="58" x2="196" y2="58"/>
+ <!-- Върхове -->
+ <text class="point" x="62" y="59">A₁</text><text class="point" x="200" y="59">B₁</text><text class="point" x="132" y="24">C₁</text>
+ <text class="point" x="62" y="145">A</text><text class="point" x="200" y="145">B</text><text class="point" x="131" y="108">C</text>
+ <!-- Ясно означена височина, успоредна на околните ръбове -->
+ <line class="dim" x1="42" y1="58" x2="42" y2="138"/>
+ <line class="dim" x1="36" y1="58" x2="48" y2="58"/><line class="dim" x1="36" y1="138" x2="48" y2="138"/>
+ <line class="aux" x1="42" y1="58" x2="76" y2="58"/><line class="aux" x1="42" y1="138" x2="76" y2="138"/>
+ <text class="label" x="8" y="94">h = l</text><text class="label" x="7" y="111">= AA₁</text>
+ <!-- Означение на основата извън фигурата -->
+ <text class="label" x="102" y="165">основа ABC</text>
  </g></svg>`;
 if(kind==='cuboid')return `<svg ${solidCommon}><g class="solid-body">
  <polygon class="face-front" points="55,55 165,55 165,122 55,122"/><polygon class="face-side" points="165,55 212,31 212,98 165,122"/><polygon class="face-top" points="55,55 102,31 212,31 165,55"/>
