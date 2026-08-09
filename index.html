@@ -105,6 +105,7 @@ button{cursor:pointer}
 .solid3d .face-front{fill:color-mix(in srgb,var(--accent) 18%,transparent);stroke:none}
 .solid3d .face-side{fill:color-mix(in srgb,var(--navy) 10%,transparent);stroke:none}
 .solid3d .face-top{fill:color-mix(in srgb,var(--accent) 10%,white 4%);stroke:none}
+.solid3d .top-rim{fill:color-mix(in srgb,var(--accent) 8%,white 12%);stroke:var(--navy);stroke-width:2.2;vector-effect:non-scaling-stroke}
 .solid3d .surface{fill:color-mix(in srgb,var(--accent) 11%,transparent);stroke:none}
 .solid3d .label{font-family:var(--math-font)!important;font-size:12px;font-style:italic;font-weight:650;fill:var(--ink)}
 .solid3d .point{font-family:Georgia,"Times New Roman",serif;font-size:10.5px;font-style:italic;font-weight:650;fill:var(--ink)}
@@ -306,13 +307,16 @@ const common='viewBox="0 0 240 120" aria-hidden="true"';
 const solidCommon='viewBox="0 0 280 160" class="solid3d" role="img" aria-label="Стереометричен чертеж"';
 if(kind==='circle')return `<svg ${common}><circle cx="120" cy="60" r="42"/><line x1="78" y1="60" x2="162" y2="60"/><line x1="120" y1="60" x2="145" y2="27"/><circle cx="120" cy="60" r="2" class="fill"/><text x="115" y="75">O</text><text x="132" y="43">r</text><text x="98" y="54">d</text></svg>`;
 if(kind==='prism')return `<svg ${solidCommon}><g class="solid-body">
- <polygon class="face-front" points="55,112 120,126 88,65"/><polygon class="face-side" points="120,126 188,97 154,38 88,65"/><polygon class="face-top" points="55,112 108,83 154,38 88,65"/>
- <line class="hidden-edge" x1="108" y1="83" x2="188" y2="97"/>
- <path class="edge" d="M55 112 L120 126 L88 65 Z M55 112 L108 83 M120 126 L188 97 M88 65 L154 38 M108 83 L154 38 M154 38 L188 97"/>
- <line class="shine" x1="88" y1="65" x2="154" y2="38"/>
- <text class="point" x="44" y="116">A</text><text class="point" x="120" y="141">B</text><text class="point" x="78" y="61">C</text>
- <text class="point" x="101" y="79">A₁</text><text class="point" x="191" y="101">B₁</text><text class="point" x="156" y="34">C₁</text>
- <line class="dim" x1="202" y1="94" x2="168" y2="36"/><text class="label" x="205" y="66">h = l</text><text class="label" x="74" y="107">B</text>
+ <polygon class="face-front" points="46,112 108,132 82,58"/><polygon class="face-side" points="108,132 203,103 177,30 82,58"/><polygon class="face-top" points="46,112 141,83 177,30 82,58"/>
+ <path class="edge" d="M46 112 L108 132 L82 58 Z M46 112 L141 83 M108 132 L203 103 M82 58 L177 30 M177 30 L203 103"/>
+ <path class="hidden-edge" d="M141 83 L203 103 M141 83 L177 30"/>
+ <line class="shine" x1="82" y1="58" x2="177" y2="30"/>
+ <text class="point" x="35" y="117">A</text><text class="point" x="107" y="147">B</text><text class="point" x="71" y="54">C</text>
+ <text class="point" x="132" y="80">A₁</text><text class="point" x="207" y="108">B₁</text><text class="point" x="179" y="27">C₁</text>
+ <line class="dim" x1="112" y1="137" x2="207" y2="108"/>
+ <line class="dim" x1="108" y1="132" x2="115" y2="143"/><line class="dim" x1="203" y1="103" x2="210" y2="114"/>
+ <text class="label" x="151" y="139">h = l = BB₁</text>
+ <text class="label" x="55" y="104">основа</text>
  </g></svg>`;
 if(kind==='cuboid')return `<svg ${solidCommon}><g class="solid-body">
  <polygon class="face-front" points="55,55 165,55 165,122 55,122"/><polygon class="face-side" points="165,55 212,31 212,98 165,122"/><polygon class="face-top" points="55,55 102,31 212,31 165,55"/>
@@ -340,11 +344,14 @@ if(kind==='pyramid')return `<svg ${solidCommon}><g class="solid-body">
  </g></svg>`;
 if(kind==='cylinder')return `<svg ${solidCommon}><g class="solid-body">
  <path class="surface" d="M76 43 C76 29 101 20 140 20 C179 20 204 29 204 43 L204 119 C204 133 179 142 140 142 C101 142 76 133 76 119 Z"/>
- <ellipse class="edge face-top" cx="140" cy="43" rx="64" ry="19"/><line class="edge" x1="76" y1="43" x2="76" y2="119"/><line class="edge" x1="204" y1="43" x2="204" y2="119"/>
+ <ellipse class="top-rim" cx="140" cy="43" rx="64" ry="19"/>
+ <line class="edge" x1="76" y1="43" x2="76" y2="119"/><line class="edge" x1="204" y1="43" x2="204" y2="119"/>
  <path class="hidden-edge" d="M76 119 C76 105 101 100 140 100 C179 100 204 105 204 119"/><path class="edge" d="M76 119 C76 133 101 142 140 142 C179 142 204 133 204 119"/>
- <line class="aux" x1="140" y1="43" x2="140" y2="119"/><circle class="center-dot" cx="140" cy="43" r="2.2"/><circle class="center-dot" cx="140" cy="119" r="2.2"/>
- <line class="dim" x1="140" y1="43" x2="196" y2="43"/><text class="label" x="166" y="36">r</text><text class="label" x="214" y="83">h = l</text>
- <text class="point" x="132" y="38">O₁</text><text class="point" x="131" y="116">O</text><line class="shine" x1="88" y1="50" x2="88" y2="111"/>
+ <line class="aux" x1="140" y1="43" x2="140" y2="119"/><circle class="center-dot" cx="140" cy="43" r="2.3"/><circle class="center-dot" cx="140" cy="119" r="2.3"/>
+ <line class="dim" x1="140" y1="43" x2="198" y2="43"/><text class="label" x="166" y="35">r</text>
+ <line class="dim" x1="216" y1="43" x2="216" y2="119"/><line class="dim" x1="211" y1="43" x2="221" y2="43"/><line class="dim" x1="211" y1="119" x2="221" y2="119"/>
+ <text class="label" x="223" y="84">h = l</text>
+ <text class="point" x="131" y="38">O₁</text><text class="point" x="131" y="116">O</text><line class="shine" x1="88" y1="50" x2="88" y2="111"/>
  </g></svg>`;
 if(kind==='cone')return `<svg ${solidCommon}><g class="solid-body">
  <path class="surface" d="M140 18 L73 126 C79 140 105 147 140 147 C175 147 201 140 207 126 Z"/>
