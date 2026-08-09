@@ -91,6 +91,30 @@ button{cursor:pointer}
 .authorCredit{font-weight:650;color:var(--muted)}
 @media(max-width:680px){.installBtn{padding:9px 10px}.formula{font-size:20px}.authorFooter{padding-left:20px;padding-right:20px}}
 
+
+/* 3D стереометрични чертежи: видимите ръбове са непрекъснати,
+   скритите ръбове са пунктирни. */
+.viz.solid-viz{height:188px;margin:2px 0 10px;overflow:visible}
+.viz.solid-viz svg{max-width:330px;height:100%;overflow:visible}
+.solid3d{filter:drop-shadow(0 8px 8px rgba(18,58,99,.13));overflow:visible}
+.solid3d .solid-body{transform-box:fill-box;transform-origin:center;animation:solidFloat 5.2s ease-in-out infinite alternate}
+.solid3d .edge{stroke:var(--navy);stroke-width:2.15;fill:none;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.solid3d .hidden-edge{stroke:var(--navy);stroke-width:1.9;fill:none;stroke-dasharray:6 5;stroke-linecap:round;opacity:.8;vector-effect:non-scaling-stroke}
+.solid3d .aux{stroke:var(--accent);stroke-width:1.7;fill:none;stroke-dasharray:4 4;opacity:.95;vector-effect:non-scaling-stroke}
+.solid3d .dim{stroke:var(--accent);stroke-width:1.55;fill:none;vector-effect:non-scaling-stroke}
+.solid3d .face-front{fill:color-mix(in srgb,var(--accent) 18%,transparent);stroke:none}
+.solid3d .face-side{fill:color-mix(in srgb,var(--navy) 10%,transparent);stroke:none}
+.solid3d .face-top{fill:color-mix(in srgb,var(--accent) 10%,white 4%);stroke:none}
+.solid3d .surface{fill:color-mix(in srgb,var(--accent) 11%,transparent);stroke:none}
+.solid3d .label{font-family:var(--math-font)!important;font-size:12px;font-style:italic;font-weight:650;fill:var(--ink)}
+.solid3d .point{font-family:Georgia,"Times New Roman",serif;font-size:10.5px;font-style:italic;font-weight:650;fill:var(--ink)}
+.solid3d .center-dot{fill:var(--accent);stroke:none}
+.solid3d .shine{fill:none;stroke:color-mix(in srgb,var(--accent) 55%,white);stroke-width:2;opacity:.25;animation:solidShine 3.8s ease-in-out infinite alternate;vector-effect:non-scaling-stroke}
+@keyframes solidFloat{0%{transform:translateY(1.5px) scale(.995)}100%{transform:translateY(-2.5px) scale(1.012)}}
+@keyframes solidShine{0%{opacity:.12}100%{opacity:.48}}
+@media(prefers-reduced-motion:reduce){.solid3d .solid-body,.solid3d .shine{animation:none!important}}
+@media(max-width:680px){.viz.solid-viz{height:172px}.viz.solid-viz svg{max-width:300px}}
+
 </style>
 </head>
 <body>
@@ -176,6 +200,8 @@ const cards=[
 {t:'geometry',type:'formula',title:'Дължина на окръжност и лице на кръг',formula:'c = πd = 2πr<br>B = πr<sup>2</sup>',text:'За числени пресмятания се използва π ≈ 3,14 (или <span class="frac"><span class="num">22</span><span class="den">7</span></span>, когато е удобно).',note:'c – дължина на окръжността; B – лице на кръга.',ex:'При r = 3 cm: c = 6π cm, B = 9π cm².'},
 {t:'geometry',type:'formula',title:'Правилен n-ъгълник',formula:'P = n·b<br>B = P·a / 2',text:'Всички страни и всички ъгли са равни.',note:'b – страна; a – апотема; n – брой страни.',ex:'Правилен шестоъгълник със страна b има P = 6b.'},
 {t:'geometry',type:'formula',title:'Права призма',formula:'S = P·h<br>S<sub>1</sub> = S + 2B<br>V = B·h',text:'Околните стени са правоъгълници, а двете основи са еднакви многоъгълници.',note:'P – периметър на основата; B – лице на основата; h – височина.',viz:'prism',ex:'Ако B = 20 cm² и h = 7 cm, тогава V = 140 cm³.'},
+{t:'geometry',type:'formula',title:'Правоъгълен паралелепипед',formula:'S<sub>1</sub> = 2(ab + ac + bc)<br>V = abc',text:'Всички стени са правоъгълници. Трите измерения са a, b и c.',note:'a и b – измерения на основата; c = h – височина; B = ab.',viz:'cuboid',ex:'При a = 4 cm, b = 3 cm, c = 5 cm: S₁ = 94 cm², V = 60 cm³.'},
+{t:'geometry',type:'formula',title:'Куб',formula:'S<sub>1</sub> = 6a<sup>2</sup><br>V = a<sup>3</sup>',text:'Кубът е правоъгълен паралелепипед, при който всички ръбове са равни.',note:'a – ръб на куба.',viz:'cube',ex:'При a = 4 cm: S₁ = 96 cm², V = 64 cm³.'},
 {t:'geometry',type:'formula',title:'Правилна пирамида',formula:'S = P·k / 2<br>S<sub>1</sub> = S + B<br>V = B·h / 3',text:'Основата е правилен многоъгълник, а околните стени са еднакви равнобедрени триъгълници.',note:'k – апотема на пирамидата; h – височина.',viz:'pyramid',ex:'Ако B = 30 cm² и h = 9 cm, тогава V = 90 cm³.'},
 {t:'geometry',type:'formula',title:'Прав кръгов цилиндър',formula:'S = 2πrh<br>S<sub>1</sub> = S + 2πr<sup>2</sup><br>V = πr<sup>2</sup>h',text:'Образуващата l е равна на височината h.',note:'B = πr² е лицето на една основа.',viz:'cylinder',ex:'При r = 2 и h = 5: V = 20π.'},
 {t:'geometry',type:'formula',title:'Прав кръгов конус',formula:'S = πrl<br>S<sub>1</sub> = πrl + πr<sup>2</sup><br>V = πr<sup>2</sup>h / 3',text:'Образуващата l е по-голяма от височината h.',note:'r – радиус на основата; l – образуваща.',viz:'cone',ex:'При r = 3, l = 5: S = 15π.'},
@@ -233,6 +259,8 @@ const textbookFormulas={
 'Дължина на окръжност и лице на кръг':mathLines('c = πd','c = 2πr','B = πr<sup>2</sup>'),
 'Правилен n-ъгълник':mathLines('P = n·b',`B = ${fracHTML('P·a','2')}`),
 'Права призма':mathLines('S = P·h','S<sub>1</sub> = S + 2B','V = B·h'),
+'Правоъгълен паралелепипед':mathLines('B = ab','h = c','S<sub>1</sub> = 2(ab + ac + bc)','V = abc'),
+'Куб':mathLines('S<sub>1</sub> = 6a<sup>2</sup>','V = a<sup>3</sup>'),
 'Правилна пирамида':mathLines(`B = ${fracHTML('P·a','2')}`,`S = ${fracHTML('P·k','2')}`,'S<sub>1</sub> = S + B',`V = ${fracHTML('B·h','3')}`),
 'Прав кръгов цилиндър':mathLines('B = πr<sup>2</sup>','S = 2πrh','S<sub>1</sub> = S + 2B','V = B·h = πr<sup>2</sup>h'),
 'Прав кръгов конус':mathLines('B = πr<sup>2</sup>','S = πrl','S<sub>1</sub> = S + B',`V = ${fracHTML('B·h','3')} = ${fracHTML('πr<sup>2</sup>h','3')}`),
@@ -275,12 +303,63 @@ function displayFormula(c){return textbookFormulas[c.title] || mathLines(c.formu
 
 function svg(kind){
 const common='viewBox="0 0 240 120" aria-hidden="true"';
+const solidCommon='viewBox="0 0 280 160" class="solid3d" role="img" aria-label="Стереометричен чертеж"';
 if(kind==='circle')return `<svg ${common}><circle cx="120" cy="60" r="42"/><line x1="78" y1="60" x2="162" y2="60"/><line x1="120" y1="60" x2="145" y2="27"/><circle cx="120" cy="60" r="2" class="fill"/><text x="115" y="75">O</text><text x="132" y="43">r</text><text x="98" y="54">d</text></svg>`;
-if(kind==='prism')return `<svg ${common}><rect x="58" y="34" width="78" height="58"/><rect x="91" y="17" width="78" height="58"/><line x1="58" y1="34" x2="91" y2="17"/><line x1="136" y1="34" x2="169" y2="17"/><line x1="136" y1="92" x2="169" y2="75"/><line class="dash" x1="58" y1="92" x2="91" y2="75"/><text x="177" y="52">h</text><line x1="177" y1="19" x2="177" y2="75"/></svg>`;
-if(kind==='pyramid')return `<svg ${common}><polygon points="57,79 112,96 178,73 120,59"/><line x1="118" y1="17" x2="57" y2="79"/><line x1="118" y1="17" x2="112" y2="96"/><line x1="118" y1="17" x2="178" y2="73"/><line class="dash" x1="118" y1="17" x2="120" y2="59"/><line class="dash" x1="118" y1="17" x2="121" y2="76"/><text x="126" y="49">h</text><text x="83" y="52">k</text></svg>`;
-if(kind==='cylinder')return `<svg ${common}><ellipse cx="120" cy="25" rx="45" ry="13"/><ellipse cx="120" cy="92" rx="45" ry="13"/><line x1="75" y1="25" x2="75" y2="92"/><line x1="165" y1="25" x2="165" y2="92"/><line x1="120" y1="25" x2="160" y2="25"/><text x="139" y="19">r</text><text x="174" y="61">h</text></svg>`;
-if(kind==='cone')return `<svg ${common}><ellipse cx="120" cy="92" rx="47" ry="13"/><line x1="120" y1="15" x2="73" y2="92"/><line x1="120" y1="15" x2="167" y2="92"/><line class="dash" x1="120" y1="15" x2="120" y2="92"/><line x1="120" y1="92" x2="164" y2="92"/><text x="128" y="58">h</text><text x="148" y="55">l</text><text x="143" y="86">r</text></svg>`;
-if(kind==='sphere')return `<svg ${common}><circle cx="120" cy="60" r="45"/><ellipse cx="120" cy="60" rx="45" ry="15"/><ellipse cx="120" cy="60" rx="15" ry="45" class="dash"/><line x1="120" y1="60" x2="159" y2="60"/><text x="136" y="54">r</text><text x="114" y="75">O</text></svg>`;
+if(kind==='prism')return `<svg ${solidCommon}><g class="solid-body">
+ <polygon class="face-front" points="55,112 120,126 88,65"/><polygon class="face-side" points="120,126 188,97 154,38 88,65"/><polygon class="face-top" points="55,112 108,83 154,38 88,65"/>
+ <line class="hidden-edge" x1="108" y1="83" x2="188" y2="97"/>
+ <path class="edge" d="M55 112 L120 126 L88 65 Z M55 112 L108 83 M120 126 L188 97 M88 65 L154 38 M108 83 L154 38 M154 38 L188 97"/>
+ <line class="shine" x1="88" y1="65" x2="154" y2="38"/>
+ <text class="point" x="44" y="116">A</text><text class="point" x="120" y="141">B</text><text class="point" x="78" y="61">C</text>
+ <text class="point" x="101" y="79">A₁</text><text class="point" x="191" y="101">B₁</text><text class="point" x="156" y="34">C₁</text>
+ <line class="dim" x1="202" y1="94" x2="168" y2="36"/><text class="label" x="205" y="66">h = l</text><text class="label" x="74" y="107">B</text>
+ </g></svg>`;
+if(kind==='cuboid')return `<svg ${solidCommon}><g class="solid-body">
+ <polygon class="face-front" points="55,55 165,55 165,122 55,122"/><polygon class="face-side" points="165,55 212,31 212,98 165,122"/><polygon class="face-top" points="55,55 102,31 212,31 165,55"/>
+ <path class="hidden-edge" d="M102 31 L102 98 L212 98 M55 122 L102 98"/>
+ <path class="edge" d="M55 55 L165 55 L165 122 L55 122 Z M55 55 L102 31 L212 31 L165 55 M165 122 L212 98 M212 31 L212 98"/>
+ <line class="shine" x1="55" y1="55" x2="165" y2="55"/>
+ <text class="label" x="104" y="139">a</text><text class="label" x="188" y="120">b</text><text class="label" x="39" y="91">c</text>
+ <text class="point" x="45" y="51">A</text><text class="point" x="165" y="50">B</text><text class="point" x="168" y="134">C</text><text class="point" x="43" y="134">D</text>
+ </g></svg>`;
+if(kind==='cube')return `<svg ${solidCommon}><g class="solid-body">
+ <polygon class="face-front" points="65,55 165,55 165,126 65,126"/><polygon class="face-side" points="165,55 208,31 208,102 165,126"/><polygon class="face-top" points="65,55 108,31 208,31 165,55"/>
+ <path class="hidden-edge" d="M108 31 L108 102 L208 102 M65 126 L108 102"/>
+ <path class="edge" d="M65 55 L165 55 L165 126 L65 126 Z M65 55 L108 31 L208 31 L165 55 M165 126 L208 102 M208 31 L208 102"/>
+ <line class="shine" x1="65" y1="55" x2="165" y2="55"/>
+ <text class="label" x="108" y="143">a</text><text class="label" x="185" y="124">a</text><text class="label" x="48" y="93">a</text>
+ </g></svg>`;
+if(kind==='pyramid')return `<svg ${solidCommon}><g class="solid-body">
+ <polygon class="face-front" points="48,117 116,139 204,111 128,86"/><polygon class="face-side" points="132,18 116,139 204,111"/><polygon class="face-top" points="132,18 48,117 116,139"/>
+ <line class="hidden-edge" x1="48" y1="117" x2="128" y2="86"/><line class="hidden-edge" x1="128" y1="86" x2="204" y2="111"/><line class="hidden-edge" x1="132" y1="18" x2="128" y2="86"/>
+ <path class="edge" d="M48 117 L116 139 L204 111 M132 18 L48 117 M132 18 L116 139 M132 18 L204 111"/>
+ <circle class="center-dot" cx="126" cy="111" r="2.3"/><line class="aux" x1="132" y1="18" x2="126" y2="111"/>
+ <circle class="center-dot" cx="160" cy="125" r="2.1"/><line class="dim" x1="132" y1="18" x2="160" y2="125"/><line class="aux" x1="126" y1="111" x2="160" y2="125"/>
+ <text class="point" x="133" y="14">M</text><text class="point" x="39" y="121">A</text><text class="point" x="111" y="153">B</text><text class="point" x="207" y="114">C</text><text class="point" x="119" y="84">D</text><text class="point" x="117" y="108">O</text><text class="point" x="163" y="132">F</text>
+ <text class="label" x="137" y="68">h</text><text class="label" x="151" y="70">k</text><text class="label" x="140" y="118">a</text>
+ </g></svg>`;
+if(kind==='cylinder')return `<svg ${solidCommon}><g class="solid-body">
+ <path class="surface" d="M76 43 C76 29 101 20 140 20 C179 20 204 29 204 43 L204 119 C204 133 179 142 140 142 C101 142 76 133 76 119 Z"/>
+ <ellipse class="edge face-top" cx="140" cy="43" rx="64" ry="19"/><line class="edge" x1="76" y1="43" x2="76" y2="119"/><line class="edge" x1="204" y1="43" x2="204" y2="119"/>
+ <path class="hidden-edge" d="M76 119 C76 105 101 100 140 100 C179 100 204 105 204 119"/><path class="edge" d="M76 119 C76 133 101 142 140 142 C179 142 204 133 204 119"/>
+ <line class="aux" x1="140" y1="43" x2="140" y2="119"/><circle class="center-dot" cx="140" cy="43" r="2.2"/><circle class="center-dot" cx="140" cy="119" r="2.2"/>
+ <line class="dim" x1="140" y1="43" x2="196" y2="43"/><text class="label" x="166" y="36">r</text><text class="label" x="214" y="83">h = l</text>
+ <text class="point" x="132" y="38">O₁</text><text class="point" x="131" y="116">O</text><line class="shine" x1="88" y1="50" x2="88" y2="111"/>
+ </g></svg>`;
+if(kind==='cone')return `<svg ${solidCommon}><g class="solid-body">
+ <path class="surface" d="M140 18 L73 126 C79 140 105 147 140 147 C175 147 201 140 207 126 Z"/>
+ <line class="edge" x1="140" y1="18" x2="73" y2="126"/><line class="edge" x1="140" y1="18" x2="207" y2="126"/>
+ <path class="hidden-edge" d="M73 126 C79 112 105 106 140 106 C175 106 201 112 207 126"/><path class="edge" d="M73 126 C79 140 105 147 140 147 C175 147 201 140 207 126"/>
+ <line class="aux" x1="140" y1="18" x2="140" y2="126"/><circle class="center-dot" cx="140" cy="126" r="2.3"/><line class="dim" x1="140" y1="126" x2="204" y2="126"/>
+ <text class="point" x="144" y="15">M</text><text class="point" x="133" y="123">O</text><text class="point" x="209" y="129">A</text>
+ <text class="label" x="146" y="78">h</text><text class="label" x="180" y="73">l</text><text class="label" x="171" y="119">r</text><line class="shine" x1="140" y1="18" x2="94" y2="96"/>
+ </g></svg>`;
+if(kind==='sphere')return `<svg ${solidCommon}><g class="solid-body">
+ <circle class="surface" cx="140" cy="82" r="61"/><circle class="edge" cx="140" cy="82" r="61"/>
+ <path class="hidden-edge" d="M79 82 C79 62 106 51 140 51 C174 51 201 62 201 82"/><path class="edge" d="M79 82 C79 102 106 113 140 113 C174 113 201 102 201 82"/>
+ <path class="hidden-edge" d="M140 21 C158 21 169 48 169 82 C169 116 158 143 140 143"/><path class="edge" d="M140 21 C122 21 111 48 111 82 C111 116 122 143 140 143"/>
+ <circle class="center-dot" cx="140" cy="82" r="2.5"/><line class="dim" x1="140" y1="82" x2="196" y2="82"/><text class="label" x="166" y="75">r</text><text class="point" x="132" y="96">O</text><path class="shine" d="M104 48 C113 36 125 31 137 28"/>
+ </g></svg>`;
 if(kind==='numberline')return `<svg ${common}><line x1="25" y1="60" x2="215" y2="60"/><path d="M210 55 L218 60 L210 65"/><g>${[-4,-2,0,2,4].map((n,i)=>`<line x1="${50+i*35}" y1="54" x2="${50+i*35}" y2="66"/><text x="${44+i*35}" y="82">${n}</text>`).join('')}</g><circle cx="85" cy="60" r="4" class="fill"/><circle cx="155" cy="60" r="4" class="fill"/><text x="77" y="42">−a</text><text x="151" y="42">a</text></svg>`;
 if(kind==='axes')return `<svg ${common}><line x1="20" y1="60" x2="220" y2="60"/><line x1="120" y1="108" x2="120" y2="12"/><path d="M214 55 L222 60 L214 65"/><path d="M115 18 L120 10 L125 18"/><text x="224" y="64">x</text><text x="126" y="15">y</text><text x="126" y="75">O</text><circle cx="165" cy="88" r="4" class="fill"/><text x="172" y="94">A(3;−2)</text></svg>`;
 if(kind==='triangle')return `<svg ${common}><polygon points="55,95 55,25 170,95"/><rect x="55" y="84" width="11" height="11"/><text x="39" y="61">a</text><text x="106" y="109">b</text><text x="117" y="53">c</text></svg>`;
@@ -294,7 +373,7 @@ const topicChips=document.getElementById('topicChips');
 topicChips.innerHTML=`<button class="chip active" data-topic="all">Всички теми</button>`+topics.map(x=>`<button class="chip" data-topic="${x.id}">${x.short}</button>`).join('');
 const sections=document.getElementById('sections');
 function render(){
- sections.innerHTML=topics.map(topic=>{const list=cards.filter(c=>c.t===topic.id);return `<section class="topicSection" data-section="${topic.id}"><div class="sectionHead"><div><h2>${topic.name}</h2><p>${list.length} ключови карти</p></div></div><div class="grid">${list.map((c,i)=>`<article class="card" data-topic="${c.t}" data-type="${c.type}" data-search="${(c.title+' '+c.text+' '+c.formula.replace(/<[^>]+>/g,' ')).toLowerCase()}"><span class="tag">${typeNames[c.type]}</span><h3>${c.title}</h3>${c.viz?`<div class="viz">${svg(c.viz)}</div>`:''}<div class="formula${c.formula.length>100?' small':''}">${displayFormula(c)}</div><p>${c.text}</p>${c.note?`<div class="note">${c.note}</div>`:''}<div class="more"><button class="moreBtn" onclick="toggleExample(this)">Покажи пример ▾</button><div class="example"><b>Пример:</b> ${c.ex||'—'}</div></div></article>`).join('')}</div></section>`}).join('');
+ sections.innerHTML=topics.map(topic=>{const list=cards.filter(c=>c.t===topic.id);return `<section class="topicSection" data-section="${topic.id}"><div class="sectionHead"><div><h2>${topic.name}</h2><p>${list.length} ключови карти</p></div></div><div class="grid">${list.map((c,i)=>`<article class="card" data-topic="${c.t}" data-type="${c.type}" data-search="${(c.title+' '+c.text+' '+c.formula.replace(/<[^>]+>/g,' ')).toLowerCase()}"><span class="tag">${typeNames[c.type]}</span><h3>${c.title}</h3>${c.viz?`<div class="viz${['prism','cuboid','cube','pyramid','cylinder','cone','sphere'].includes(c.viz)?' solid-viz':''}">${svg(c.viz)}</div>`:''}<div class="formula${c.formula.length>100?' small':''}">${displayFormula(c)}</div><p>${c.text}</p>${c.note?`<div class="note">${c.note}</div>`:''}<div class="more"><button class="moreBtn" onclick="toggleExample(this)">Покажи пример ▾</button><div class="example"><b>Пример:</b> ${c.ex||'—'}</div></div></article>`).join('')}</div></section>`}).join('');
  document.getElementById('cardCount').textContent=cards.length;
  applyFilters();
 }
@@ -314,6 +393,8 @@ function calcMean(){const raw=document.getElementById('meanValues').value.trim()
 const quizData=[
 ['Коя е формулата за дължина на окръжност с радиус r?',['c=2πr','c=πr²','c=r/2'],0,'Дължината е c=2πr.'],
 ['Коя е формулата за обем на права призма?',['V=B·h','V=B·h/3','V=P·h'],0,'Обемът на призмата е лице на основата по височина.'],
+['Коя е формулата за обем на правоъгълен паралелепипед?',['V=abc','V=2(ab+ac+bc)','V=a³'],0,'Обемът е произведението на трите измерения: V=abc.'],
+['Коя е пълната повърхнина на куб с ръб a?',['S₁=6a²','S₁=a³','S₁=4a²'],0,'Кубът има 6 еднакви квадратни стени, всяка с лице a².'],
 ['Как се заменя изваждането a−b?',['a+(−b)','a+(+b)','−a+b'],0,'Изваждането е събиране с противоположното число.'],
 ['Какъв е знакът на (−a)·(−b) при a,b>0?',['положителен','отрицателен','винаги 0'],0,'Еднакви знаци дават положителен резултат.'],
 ['aᵐ·aⁿ = ?',['aᵐ⁺ⁿ','aᵐⁿ','aᵐ⁻ⁿ'],0,'При умножение на степени с еднаква основа показателите се събират.'],
