@@ -273,7 +273,7 @@ const cards=[
 {t:'proportions',type:'statement',title:'Основно свойство на пропорцията',formula:'a/b = c/d &nbsp; ⇒ &nbsp; a·d = b·c',text:'Произведението на крайните членове е равно на произведението на средните.',note:'Това свойство е основният инструмент за намиране на неизвестен член.',ex:'x:7=20:5 ⇒ 5x=140 ⇒ x=28.'},
 {t:'proportions',type:'formula',title:'Четвърта пропорционална',formula:'a = bc/d &nbsp; • &nbsp; b = ad/c<br>c = ad/b &nbsp; • &nbsp; d = bc/a',text:'Всеки член на пропорцията се изразява чрез останалите три.',note:'Знаменателите трябва да са различни от 0.',ex:'При a:b=c:d и a=3,b=4,c=6 → d=8.'},
 {t:'proportions',type:'formula',title:'Права пропорционалност',formula:'y = kx, &nbsp; k ≠ 0<br>k = y/x',text:'Отношението на y към x е постоянно. Графиката е права, която минава през O(0;0).',note:'При k>0 е в I и III квадрант; при k<0 – във II и IV.',viz:'directgraph',ex:'y=3x: при x=2 получаваме y=6.'},
-{t:'proportions',type:'formula',title:'Обратна пропорционалност',formula:'y = k/x, &nbsp; x ≠ 0<br>x·y = k',text:'Произведението x·y е постоянно. Графиката е от две криви и не пресича ординатната ос.',note:'k ≠ 0.',viz:'inversegraph',ex:'xy=12: x=3 ⇒ y=4; x=6 ⇒ y=2.'},
+{t:'proportions',type:'formula',title:'Обратна пропорционалност',formula:'y = k/x, &nbsp; x ≠ 0<br>x·y = k',text:'Произведението x·y е постоянно. Графиката има два клона и не пресича координатните оси.',note:'k ≠ 0. При k > 0 клоновете са в I и III квадрант; при k < 0 – във II и IV квадрант.',viz:'inversegraph',ex:'xy=12: x=3 ⇒ y=4; x=6 ⇒ y=2.'},
 {t:'proportions',type:'statement',title:'Разпределяне по дадено отношение',formula:'a : b : c = m : n : p<br>⇒ a=mx, b=nx, c=px',text:'Една и съща неизвестна част x умножава всички членове на отношението.',note:'После използвай известната сума, периметър или разлика.',ex:'Страни 5:7:9 и разлика 12 ⇒ 9x−5x=12 ⇒ x=3.'},
 
 // PROBABILITY
@@ -420,7 +420,15 @@ if(kind==='numberline')return `<svg ${common}><line x1="25" y1="60" x2="215" y2=
 if(kind==='axes')return `<svg ${common}><line x1="20" y1="60" x2="220" y2="60"/><line x1="120" y1="108" x2="120" y2="12"/><path d="M214 55 L222 60 L214 65"/><path d="M115 18 L120 10 L125 18"/><text x="224" y="64">x</text><text x="126" y="15">y</text><text x="126" y="75">O</text><circle cx="165" cy="88" r="4" class="fill"/><text x="172" y="94">A(3;−2)</text></svg>`;
 if(kind==='triangle')return `<svg ${common}><polygon points="55,95 55,25 170,95"/><rect x="55" y="84" width="11" height="11"/><text x="39" y="61">a</text><text x="106" y="109">b</text><text x="117" y="53">c</text></svg>`;
 if(kind==='directgraph')return `<svg ${common}><line x1="20" y1="60" x2="220" y2="60"/><line x1="120" y1="108" x2="120" y2="12"/><line x1="62" y1="101" x2="182" y2="19" style="stroke:var(--accent);stroke-width:3"/><text x="190" y="24">y=kx</text><text x="125" y="74">O</text></svg>`;
-if(kind==='inversegraph')return `<svg ${common}><line x1="20" y1="60" x2="220" y2="60"/><line x1="120" y1="108" x2="120" y2="12"/><path d="M130 18 C145 26 154 38 164 48 C176 55 190 57 214 58" style="stroke:var(--accent);stroke-width:3"/><path d="M110 102 C95 94 86 82 76 72 C64 65 50 63 26 62" style="stroke:var(--accent);stroke-width:3"/><text x="170" y="29">y=k/x</text></svg>`;
+if(kind==='inversegraph')return `<svg ${common} viewBox="0 0 240 120" aria-label="Графика на обратна пропорционалност за k положително">
+<defs><marker id="arrInv" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" style="fill:var(--ink);stroke:none"/></marker></defs>
+<line x1="18" y1="60" x2="222" y2="60" marker-end="url(#arrInv)"/><line x1="120" y1="110" x2="120" y2="10" marker-end="url(#arrInv)"/>
+<path d="M133.5 10.0 L135 15 L138 22.5 L142.5 30 L150 37.5 L157.5 42.9 L165 45 L180 48.75 L195 51 L210 52.5" style="fill:none;stroke:var(--accent);stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round"/>
+<path d="M106.5 110.0 L105 105 L102 97.5 L97.5 90 L90 82.5 L82.5 77.1 L75 75 L60 71.25 L45 69 L30 67.5" style="fill:none;stroke:var(--accent);stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round"/>
+<circle cx="150" cy="37.5" r="2.6" style="fill:var(--accent);stroke:none"/><circle cx="90" cy="82.5" r="2.6" style="fill:var(--accent);stroke:none"/>
+<text x="225" y="64" class="label">x</text><text x="125" y="14" class="label">y</text><text x="124" y="74" class="point">O</text>
+<text x="165" y="25" class="label">y = k/x, k &gt; 0</text>
+</svg>`;
 if(kind==='venn')return `<svg ${common}><circle cx="95" cy="60" r="38" class="fill"/><circle cx="145" cy="60" r="38" class="fill"/><text x="72" y="38">A</text><text x="161" y="38">B</text><text x="111" y="64">A∩B</text></svg>`;
 return '';
 }
