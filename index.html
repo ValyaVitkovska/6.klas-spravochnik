@@ -83,6 +83,9 @@ button{cursor:pointer}
 .card h3{font-family:Georgia,"Times New Roman",serif;font-weight:700;letter-spacing:.005em}
 .installBtn{display:inline-flex;align-items:center;gap:7px;border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));background:color-mix(in srgb,var(--accent) 9%,var(--panel));color:var(--accent);border-radius:12px;padding:10px 12px;font-weight:800;white-space:nowrap}
 .installBtn:hover{background:color-mix(in srgb,var(--accent) 16%,var(--panel))}
+.printBtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:12px;padding:10px 12px;font-weight:800;white-space:nowrap}
+.printBtn:hover{border-color:var(--accent);color:var(--accent);background:color-mix(in srgb,var(--accent) 7%,var(--panel))}
+
 .installHelp{display:grid;gap:12px;margin-top:14px;color:var(--ink)}
 .installHelp .step{background:var(--formula);border:1px solid var(--line);border-radius:13px;padding:12px 14px}
 .installHelp b{color:var(--accent)}
@@ -119,6 +122,32 @@ button{cursor:pointer}
 @media(prefers-reduced-motion:reduce){.solid3d .solid-body,.solid3d .shine{animation:none!important}}
 @media(max-width:680px){.viz.solid-viz{height:172px}.viz.solid-viz svg{max-width:300px}}
 
+
+@media print{
+  @page{size:A4 portrait;margin:12mm}
+  html,body{background:#fff!important;color:#000!important}
+  body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .top,.toolbar,.more,.panel,.modal,.heroStats,.geoFigure{display:none!important}
+  .hero{margin:0 0 10mm!important;padding:0!important}
+  .heroBox{background:#fff!important;color:#000!important;border:1px solid #bbb!important;box-shadow:none!important;padding:14px 16px!important;border-radius:10px!important;display:block!important}
+  .heroBox:after{display:none!important}
+  .hero h1{font-size:24pt!important;color:#000!important}
+  .hero p,.geoSpeech,.geoSpeech strong,.geoSpeech .how{color:#222!important}
+  .geoSpeech{background:#f7f7f7!important;border-color:#bbb!important;box-shadow:none!important}
+  .wrap{max-width:none!important;padding:0!important}
+  .topicSection{break-before:auto}
+  .sectionHead{margin:8mm 0 4mm!important}
+  .sectionHead h2{font-size:18pt!important}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:5mm!important}
+  .card{break-inside:avoid;page-break-inside:avoid;box-shadow:none!important;border:1px solid #bbb!important;background:#fff!important;min-height:0!important}
+  .card:hover{transform:none!important}
+  .formula{background:#f6f8fb!important;border-color:#bbb!important;color:#000!important;overflow:visible!important}
+  .tag{border:1px solid #bbb!important;background:#fff!important;color:#333!important}
+  .viz svg{max-height:38mm}
+  .authorFooter{display:flex!important;border-top:1px solid #bbb!important;margin:8mm 0 0!important;padding:5mm 0 0!important;color:#333!important;break-inside:avoid}
+  .authorFooter img{display:none!important}
+  .footer{display:none!important}
+}
 </style>
 </head>
 <body>
@@ -128,6 +157,7 @@ button{cursor:pointer}
     <div class="search"><input id="search" type="search" placeholder="Търси: Питагорова теорема, вероятност, цилиндър…" aria-label="Търсене"><span class="kbd">Ctrl K</span></div>
     <button class="iconbtn" id="flashBtn" title="Флашкарти">◫ Флашкарти</button>
     <button class="installBtn" id="installBtn" title="Инсталиране като приложение">⬇ Инсталирай</button>
+    <button class="printBtn" id="printBtn" title="Принтиране на видимото съдържание">🖨 Принтирай</button>
     <button class="iconbtn" id="themeBtn" title="Светла/тъмна тема">◐</button>
   </div>
 </header>
@@ -449,6 +479,17 @@ function showFlash(){const f=flashCards[fi];document.getElementById('flashCounte
 function toggleFlash(){document.getElementById('flashExplain').classList.toggle('show')}
 function nextFlash(){fi=(fi+1)%flashCards.length;showFlash()}function prevFlash(){fi=(fi-1+flashCards.length)%flashCards.length;showFlash()}
 document.getElementById('flashModal').addEventListener('click',e=>{if(e.target.id==='flashModal')closeFlash()});
+
+
+// Принтиране на видимото съдържание
+const printBtn=document.getElementById('printBtn');
+if(printBtn){
+  printBtn.addEventListener('click',()=>{
+    // Отваря системния прозорец за печат. Активните филтри се запазват,
+    // така че може да се принтира целият справочник или само избраната тема.
+    window.print();
+  });
+}
 
 // Инсталиране като PWA
 let deferredInstallPrompt=null;

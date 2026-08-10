@@ -1,4 +1,4 @@
-const CACHE='math6-guide-v8';
+const CACHE='math6-guide-v9';
 const ASSETS=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./apple-touch-icon.png','./logo-120.png'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)));
